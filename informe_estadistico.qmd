@@ -1,0 +1,61 @@
+---
+title: "Titulo original corto pero claro"
+subtitle: "EYP3007 - Consultoría Estadística"
+format: 
+  pdf: 
+    include-in-header: 
+      text: |
+        \usepackage{amsmath}
+    colorlinks: true
+    geometry:
+      - top=20mm
+      - left=20mm
+      - right=20mm
+      - heightrounded
+    fig-pos: H
+    fontsize: 10pt
+author: 
+  - name: "Constanza Segovia Gonzalez"
+  - name: "Francisca Vilca Sánchez"
+crossref:
+  fig-title: Figura
+  fig-prefix: figura
+  tbl-title: Tabla
+  tbl-prefix: tabla
+tbl-cap-location: bottom
+execute: 
+  echo: false
+  message: false
+  warning: false
+---
+
+```{r}
+library(rio)
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+
+```
+
+```{r}
+datos <- import("ENS-reducida.xlsx")
+
+```
+
+## Introducción
+
+aqui contamos en 4 parrafos como maximo q wea vamos a hacer
+
+## Relación de las variables
+
+aqui se viene el analisis descriptivo y el modelito q creemos
+
+## Conclusiones
+
+algo debemos haber creado
+
+## Bibliografía 
+
+no se q wea poner de relleno aca pero debe estar en apa
+
+LOS ANEXOOOOOS DEBERIAN IR AQUÍ
