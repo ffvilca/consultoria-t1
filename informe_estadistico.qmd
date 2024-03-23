@@ -15,7 +15,7 @@ format:
     fig-pos: H
     fontsize: 10pt
 author: 
-  - name: "Constanza Segovia Gonzalez"
+  - name: "Constanza Segovia González"
   - name: "Francisca Vilca Sánchez"
 crossref:
   fig-title: Figura
