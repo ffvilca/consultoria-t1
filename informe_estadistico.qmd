@@ -40,6 +40,9 @@ library(patchwork)
 ```{r}
 datos <- import("ENS-reducida.xlsx")
 
+datitos <- datos %>% 
+  select(c(1:6),c(27:38),c(66:76))
+
 ```
 
 ## Introducción
@@ -48,7 +51,13 @@ aqui contamos en 4 parrafos como maximo q wea vamos a hacer
 
 ## Relación de las variables
 
-aqui se viene el analisis descriptivo y el modelito q creemos
+### Trastorno del Sueño
+
+
+
+### Estado Nutricional
+
+
 
 ## Conclusiones
 
