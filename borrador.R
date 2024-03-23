@@ -104,24 +104,6 @@ datitos2 %>%
                     labels = c("Sin sospecha", "Con sospecha"))+
   theme_minimal()
 
-
-datitos2 %>% 
-  group_by(sospecha_apnea) %>% 
-  summarise(Cantidad = n()) %>% 
-  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>%  
-  ggplot(aes(x="",y=Porcentaje, fill= sospecha_apnea))+
-  geom_bar(stat = "identity",
-           color="white") +
-  geom_text(aes(label = str_glue("{format(Porcentaje, big.mark = '.', decimal.mark = ',')}%")),
-            position=position_stack(vjust=0.5),color="black",size=5)+
-  coord_polar(theta = "y")+
-  labs(x = "",
-       y = "",
-       fill = "¿Hay Sospecha de Apnea?")+
-  scale_fill_manual(values = c("#F72C25", "#65E317"),
-                    labels = c("Sin sospecha", "Con sospecha"))+
-  theme_minimal()
-
 datitos2 %>% 
   group_by(trastorno_suegno) %>% 
   summarise(Cantidad = n()) %>% 
