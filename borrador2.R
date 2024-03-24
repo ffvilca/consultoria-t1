@@ -77,3 +77,86 @@ graf2 <- tab2 %>%
 graf2
 
 plotly::ggplotly(graf2, tooltip = "text")
+
+#### resumen de datos generales
+
+table(datitos2$Nivel_Educ)
+table(datitos2$Sexo)
+table(datitos$Edad_Codificada)
+table(datitos$AREA)
+
+# 1=15-24  2=25-44 3=45-64 4=65+
+
+
+datitos %>% 
+  mutate(Edad_Codificada_2 = ifelse(Edad_Codificada == 1,"15 a 24 años",
+                                    ifelse(Edad_Codificada == 2, "25 a 44 años",
+                                           ifelse(Edad_Codificada == 3, "45 a 64 años","65 años o más")))) %>% 
+  mutate(Edad_Codificada_2 = factor(Edad_Codificada_2,
+                                    labels = c("15 a 24 años",
+                                               "25 a 44 años",
+                                               "45 a 64 años",
+                                               "65 años o más")) ) %>% 
+  group_by(Edad_Codificada_2) %>% 
+  summarise(Cantidad = n()) %>% 
+  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
+  kable(digits = 2, align = "c",booktabs = TRUE,
+        col.names = c("Edad","Cantidad", "Porcentaje"),
+        full.with =FALSE,
+        format.args=list(decimal.mark=',', big.mark = '.')) %>%
+  kable_minimal() %>%   
+  row_spec(0, bold = T, color = "white", background = "#ff0054")
+
+
+# 1=Bajo (<8 años) 2=Medio (8-12 años) 3=Alto (>12 años)
+
+datitos %>% 
+  mutate(Nivel_Educ_2 = ifelse(Nivel_Educ == 1,"Bajo",
+                               ifelse(Nivel_Educ == 2, "Medio","Alto"))) %>% 
+  mutate(Nivel_Educ_2 = factor(Nivel_Educ_2,
+                               labels = c("Bajo",
+                                          "Medio",
+                                          "Alto")) ) %>% 
+  group_by(Nivel_Educ_2) %>% 
+  summarise(Cantidad = n()) %>% 
+  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
+  kable(digits = 2, align = "c",booktabs = TRUE,
+        col.names = c("Nivel Educacional","Cantidad", "Porcentaje"),
+        full.with =FALSE,
+        format.args=list(decimal.mark=',', big.mark = '.')) %>%
+  kable_minimal() %>%   
+  row_spec(0, bold = T, color = "white", background = "#ff0054")
+
+# Norte, Centro, C-Sur, Sur y RM
+
+
+datitos %>% 
+  mutate(AREA_2 = factor(AREA,
+                         labels = c("Norte",
+                                    "Centro",
+                                    "RM",
+                                    "C-Sur",
+                                    "Sur")) ) %>% 
+  group_by(AREA_2) %>% 
+  summarise(Cantidad = n()) %>% 
+  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
+  kable(digits = 2, align = "c",booktabs = TRUE,
+        col.names = c("Área","Cantidad", "Porcentaje"),
+        full.with =FALSE,
+        format.args=list(decimal.mark=',', big.mark = '.')) %>%
+  kable_minimal() %>%   
+  row_spec(0, bold = T, color = "white", background = "#ff0054")
+
+# 1=Masculino  2=Femenino
+
+datitos %>% 
+  mutate(Sexo_2 = ifelse(Sexo == 1,"Masculino","Femenino")) %>% 
+  group_by(Sexo_2) %>% 
+  summarise(Cantidad = n()) %>% 
+  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
+  kable(digits = 2, align = "c",booktabs = TRUE,
+        col.names = c("Sexo","Cantidad", "Porcentaje"),
+        full.with =FALSE,
+        format.args=list(decimal.mark=',', big.mark = '.')) %>%
+  kable_minimal() %>%   
+  row_spec(0, bold = T, color = "white", background = "#ff0054")

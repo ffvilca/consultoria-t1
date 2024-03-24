@@ -68,5 +68,17 @@ ggplot(datitos2, aes(x = est_nut, fill=trastorno_suegno)) +
 #torta apnea, trastorno sueño 
 ggplot(datitos2)
 
+### la wea del chi-cuadrado
+
+# Crear la tabla de contingencia
+tabla_contingencia <- matrix(c(29, 401, 592, 0, 35, 42, 701, 871, 0, 67), nrow = 5, byrow = TRUE)
+rownames(tabla_contingencia) <- c("Enflaquecido", "Normal", "Sobrepeso", "Obeso", "Obeso mórbido")
+colnames(tabla_contingencia) <- c("0", "1")
+
+# Realizar el test de chi-cuadrado
+resultado_chi_cuadrado <- chisq.test(tabla_contingencia)
+
+# Mostrar los resultados
+print(resultado_chi_cuadrado)
 
 

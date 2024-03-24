@@ -1,5 +1,5 @@
 ---
-title: "Titulo original corto pero claro"
+title: "Nutrición, Sueño y Salud: Un Análisis Estadístico"
 subtitle: "EYP3007 - Consultoría Estadística"
 format: 
   pdf: 
@@ -13,6 +13,7 @@ format:
       - right=20mm
       - heightrounded
     fig-pos: H
+    classoption: twocolumn
     fontsize: 10pt
 author: 
   - name: "Constanza Segovia González"
@@ -36,6 +37,7 @@ library(ggplot2)
 library(patchwork)
 library(stringr)
 library(ggrepel)
+library(kableExtra)
 
 ```
 
@@ -43,9 +45,30 @@ library(ggrepel)
 datos <- import("ENS-reducida.xlsx")
 
 datitos <- datos %>% 
-  select(c(1:6),c(27:38),c(66:76))
+  mutate(Edad_Codificada_2 = ifelse(Edad_Codificada == 1,"15 a 24 años",
+                                    ifelse(Edad_Codificada == 2, "25 a 44 años",
+                                           ifelse(Edad_Codificada == 3, "45 a 64 años","65 años o más")))) %>% 
+  mutate(Edad_Codificada_2 = factor(Edad_Codificada_2,
+                                    labels = c("15 a 24 años",
+                                               "25 a 44 años",
+                                               "45 a 64 años",
+                                               "65 años o más")) ) %>% 
+  mutate(AREA_2 = factor(AREA,
+                         labels = c("Norte",
+                                    "Centro",
+                                    "RM",
+                                    "C-Sur",
+                                    "Sur")) ) %>% 
+  select(c(1:6),c(27:38),c(66:76),143,144)
 
 datitos2 <-  datitos %>%
+  mutate(Sexo_2 = ifelse(Sexo == 1,"Masculino","Femenino")) %>% 
+  mutate(Nivel_Educ_2 = ifelse(Nivel_Educ == 1,"Bajo",
+                               ifelse(Nivel_Educ == 2, "Medio","Alto"))) %>% 
+  mutate(Nivel_Educ_2 = factor(Nivel_Educ_2,
+                               labels = c("Bajo",
+                                          "Medio",
+                                          "Alto")) ) %>% 
   mutate(horas_suegno_sem = ifelse(ts5 <= 5, "Menos o 5 horas",
                                    ifelse(5 < ts5 & ts5 <= 10,
                                           "Entre 5 a 10 horas",
@@ -68,21 +91,92 @@ datitos2 <-  datitos %>%
                                               "Entre 5 a 10 horas",
                                               "Más de 10 horas"))) %>%
   na.omit() %>% 
-  select(2,4,6,11,12,c(17:20),c(23:25),28,29)
+  select(2,4,6,11,12,c(17:20),c(23:25),28,29,c(32:35))
 
 ```
-
-falta:
-introducción: poner qué haremos y con cuántos datos nos quedaremos!
-cambiar en los gráficos para que se vean de a 1 y no de a 5 para saber bien el promedio de horas de sueño
-
-
 
 ## Introducción
 
 La Encuesta Nacional de Salud (ENS) emerge como un recurso invaluable para el país en su búsqueda de comprender las enfermedades no transmisibles y los factores de riesgo asociados. Es una herramienta fundamental que proporciona al Ministerio de Salud una instantánea actualizada para evaluar políticas, anticipar la demanda del sistema sanitario y establecer medidas de vigilancia epidemiológica. 
 
-El presente informe tiene como objetivo analizar dos temas específicos evaluados por la ENS: los Trastornos del Sueño y el Estado Nutricional. Se enfocará en buscar una posible relación entre ambos aspectos de la salud. El Estado Nutricional, detalladamente subdividido en categorías que incluyen el Índice de Masa Corporal (IMC), peso, talla, circunferencia de cintura y cuello, entre otros, proporciona una clasificación exhaustiva que abarca desde "Normal" hasta "Obeso mórbido". A través de este análisis, se pretende explorar la interacción entre estos dos dominios de la salud, identificando posibles correlaciones y brindando una visión más completa de su impacto en la población.
+El presente informe tiene como objetivo analizar dos temas específicos evaluados por la ENS: los **Trastornos del Sueño** y el **Estado Nutricional**. Se enfocará en buscar una posible relación entre ambos aspectos de la salud. El Estado Nutricional, detalladamente subdividido en categorías que incluyen el Índice de Masa Corporal (IMC), Peso, Talla, Circunferencia de Cintura y Cuello, entre otros, proporciona una clasificación exhaustiva que abarca desde "Normal" hasta "Obeso mórbido". Por otro lado, el Trastorno del Sueño, tambien esta subdivido en categorías que destacan la cantidad de horas que duerme una persona, si tiene sospecha de apnea o de trastorno del sueño, según la respuesta a diferentes preguntas.
+
+El objetivo de este análisis es explorar la interacción entre estos dos dominios de la salud, identificando posibles correlaciones y brindando una visión más completa de su impacto en la población. Para ello, primero revisaremos los datos generales que poseemos de la muestra extraída y luego las características de cada tema. A continuación, revisaremos la relación entre ambas variables, para comprobar la relación entre ambas. Finalmente concluir en base a los resultados obtenidos.
+
+## Datos de la muestra
+
+Como se mencionó anteriormente, para la creación de este trabajo se utiliza una muestra con `r nrow(datos)` individuos. Sin embargo, dado que existen datos faltantes dentro de la muestra a trabajar para las categorías que se van a utilizar, finalmente se usará una base con `r nrow(datitos2)` individuos. Con esta muestra se pueden revisar algunas características a nivel general como:
+
+- Edad: En la @tbl-t1, es posible observar que la muestra se concentra principalmente en individuos entre 25 a 44 años y 45 a 64 años.
+
+```{r}
+#| label: tbl-t1
+
+datitos %>% 
+  group_by(Edad_Codificada_2) %>% 
+  summarise(Cantidad = n()) %>% 
+  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
+  select(1,3) %>% 
+  kable(digits = 2, align = "c",booktabs = TRUE,
+        col.names = c("Edad","Porcentaje"),
+        format.args=list(decimal.mark=',', big.mark = '.')) %>%
+  kable_minimal()  %>%
+  kable_styling(full_width = FALSE)
+```
+
+- Nivel Educacional: En la @tbl-t2, vemos que la muestra presenta enn general un nivel Alto de Educación que, es decir más de 12 años estudiando.
+
+```{r}
+#| label: tbl-t2
+
+datitos2 %>%
+  group_by(Nivel_Educ_2) %>% 
+  summarise(Cantidad = n()) %>% 
+  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
+  select(1,3) %>% 
+  kable(digits = 2, align = "c",booktabs = TRUE,
+        col.names = c("Nivel Educacional", "Porcentaje"),
+        format.args=list(decimal.mark=',', big.mark = '.')) %>%
+  kable_minimal()  %>%
+  kable_styling(full_width = FALSE)
+```
+
+- Zona Geográfica: lo mismo q con el otro
+
+```{r}
+#| label: tbl-t3
+
+datitos %>%
+  group_by(AREA_2) %>% 
+  summarise(Cantidad = n()) %>% 
+  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
+  select(1,3) %>% 
+  kable(digits = 2, align = "c",booktabs = TRUE,
+        col.names = c("Área", "Porcentaje"),
+        format.args=list(decimal.mark=',', big.mark = '.')) %>%
+  kable_minimal()  %>%
+  kable_styling(full_width = FALSE)
+```
+
+- Sexo: le pondria género pero el profe 
+
+```{r}
+#| label: tbl-t4
+
+# 1=Masculino  2=Femenino
+
+datitos2 %>% 
+  mutate(Sexo_2 = ifelse(Sexo == 1,"Masculino","Femenino")) %>% 
+  group_by(Sexo_2) %>% 
+  summarise(Cantidad = n()) %>% 
+  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
+  select(1,3) %>% 
+  kable(digits = 2, align = "c",booktabs = TRUE,
+        col.names = c("Sexo","Porcentaje"),
+        format.args=list(decimal.mark=',', big.mark = '.')) %>%
+  kable_minimal() %>%
+  kable_styling(full_width = FALSE)
+```
 
 
 ## Trastorno del Sueño
@@ -94,15 +188,22 @@ Los trastornos del sueño abarcan una variedad de alteraciones en los patrones d
 Para comenzar el análisis, se realizará una comparación entre las horas de sueño en la semana y las horas de sueño el fin de semana del total de la población encuestada. 
 
 ```{r}
+#| label: fig-f1
+#| fig-cap: "titulo"
+
 ggplot() +
-  geom_histogram(data = datitos, aes(x = ts5, fill = "Horas de sueño en la semana"), alpha = 0.7, color = "white", bins = 10) +
-  geom_histogram(data = datitos, aes(x = ts6, fill = "Horas de sueño el fin de semana"), alpha = 0.7, color = "white", bins = 10) +
-  labs(title = "Horas de sueño en semana y fin de semana",
+  geom_histogram(data = datitos2, aes(x = ts5, fill = "Horas de sueño en la semana"), alpha = 0.7, color = "white", bins = 20) +
+  geom_histogram(data = datitos2, aes(x = ts6, fill = "Horas de sueño el fin de semana"), alpha = 0.7, color = "white", bins = 20) +
+  labs(title = "Horas de sueño en la semana y el fin de semana por individuo",
        x = "Horas promedio de sueño",
-       y = "Frecuencia") +
+       y = "Cantidad") +
+  scale_x_continuous(limits = c(0, max(max(datitos2$ts5), max(datitos2$ts6)) + 1), breaks = seq(0, max(max(datitos2$ts5), max(datitos2$ts6)) + 1, 1)) +
   scale_fill_manual(name = "Variables",
-                    values = c("Horas de sueño en la semana" = "maroon", "Horas de sueño el fin de semana" = "#FF6A6A")) +
-  theme_minimal()
+                    values = c("Horas de sueño en la semana" = "maroon",
+                               "Horas de sueño el fin de semana" = "#FF6A6A")) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
 ```
 
 El gráfico revela que la mayoría de la población, tanto durante la semana como los fines de semana, duerme alrededor de 8 horas. Esto sugiere que hay una tendencia generalizada hacia un patrón de sueño de aproximadamente 8 horas por noche en la población estudiada. Sin embargo, se observa que durante el fin de semana, hay un aumento en el número de horas de sueño en comparación con los días laborales. Este fenómeno es común y refleja la práctica extendida de "compensar" el sueño perdido durante la semana laboral mediante un mayor descanso durante los fines de semana.
@@ -110,6 +211,9 @@ El gráfico revela que la mayoría de la población, tanto durante la semana com
 ### Trastorno del Sueño 
 
 ```{r}
+#| label: fig-f2
+#| fig-cap: "titulo2"
+
 datitos2 %>% 
   group_by(trastorno_suegno) %>% 
   summarise(Cantidad = n()) %>% 
@@ -133,6 +237,9 @@ datitos2 %>%
 ### Sospecha de Apnea
 
 ```{r}
+#| label: fig-f3
+#| fig-cap: "titulo3"
+
 datitos2 %>% 
   group_by(sospecha_apnea) %>% 
   summarise(Cantidad = n()) %>% 
@@ -154,6 +261,9 @@ datitos2 %>%
 ## Estado Nutricional
 
 ```{r}
+#| label: fig-f4
+#| fig-cap: "titulo4"
+
 datos_nut <- datitos2 %>%
   filter(est_nut %in% c("Enflaquecido", "Normal", "Sobrepeso", "Obeso", "Obeso mórbido"))
 
