@@ -72,31 +72,40 @@ datitos2 <-  datitos %>%
 
 ```
 
+falta:
+introducción: poner qué haremos y con cuántos datos nos quedaremos!
+cambiar en los gráficos para que se vean de a 1 y no de a 5 para saber bien el promedio de horas de sueño
+
+
+
 ## Introducción
 
-aqui contamos en 4 parrafos como maximo q wea vamos a hacer
+La Encuesta Nacional de Salud (ENS) emerge como un recurso invaluable para el país en su búsqueda de comprender las enfermedades no transmisibles y los factores de riesgo asociados. Es una herramienta fundamental que proporciona al Ministerio de Salud una instantánea actualizada para evaluar políticas, anticipar la demanda del sistema sanitario y establecer medidas de vigilancia epidemiológica. 
 
-Explicar q bases elegimos para trabajar,con cuantos datos nos quedamos y no sabria q más dedcir
+El presente informe tiene como objetivo analizar dos temas específicos evaluados por la ENS: los Trastornos del Sueño y el Estado Nutricional. Se enfocará en buscar una posible relación entre ambos aspectos de la salud. El Estado Nutricional, detalladamente subdividido en categorías que incluyen el Índice de Masa Corporal (IMC), peso, talla, circunferencia de cintura y cuello, entre otros, proporciona una clasificación exhaustiva que abarca desde "Normal" hasta "Obeso mórbido". A través de este análisis, se pretende explorar la interacción entre estos dos dominios de la salud, identificando posibles correlaciones y brindando una visión más completa de su impacto en la población.
+
 
 ## Trastorno del Sueño
 
-El trastorno del sueño se definen como las alteraciones en el modo de dormir. Estás pueden llegar a afectar al casi 40% de la población según la OMS. Por lo que resulta interesante entender como afecta a la población Chilena mayor de 15 años, para ello trabajando la muestra obtenida se tienen los siguientes resultados:
+Los trastornos del sueño abarcan una variedad de alteraciones en los patrones de descanso, y según la Organización Mundial de la Salud (OMS), afectan a casi el 40% de la población. En este contexto, resulta de gran interés comprender cómo impactan en la población chilena mayor de 15 años. Para abordar esto, se analizarán los resultados obtenidos a partir de la muestra recolectada por la ENS.
 
 ### Horas de Sueño:
 
-Sabemos que 
+Para comenzar el análisis, se realizará una comparación entre las horas de sueño en la semana y las horas de sueño el fin de semana del total de la población encuestada. 
 
 ```{r}
 ggplot() +
   geom_histogram(data = datitos, aes(x = ts5, fill = "Horas de sueño en la semana"), alpha = 0.7, color = "white", bins = 10) +
   geom_histogram(data = datitos, aes(x = ts6, fill = "Horas de sueño el fin de semana"), alpha = 0.7, color = "white", bins = 10) +
   labs(title = "Horas de sueño en semana y fin de semana",
-       x = "Valores",
+       x = "Horas promedio de sueño",
        y = "Frecuencia") +
   scale_fill_manual(name = "Variables",
                     values = c("Horas de sueño en la semana" = "maroon", "Horas de sueño el fin de semana" = "#FF6A6A")) +
   theme_minimal()
 ```
+
+El gráfico revela que la mayoría de la población, tanto durante la semana como los fines de semana, duerme alrededor de 8 horas. Esto sugiere que hay una tendencia generalizada hacia un patrón de sueño de aproximadamente 8 horas por noche en la población estudiada. Sin embargo, se observa que durante el fin de semana, hay un aumento en el número de horas de sueño en comparación con los días laborales. Este fenómeno es común y refleja la práctica extendida de "compensar" el sueño perdido durante la semana laboral mediante un mayor descanso durante los fines de semana.
 
 ### Trastorno del Sueño 
 
@@ -191,6 +200,7 @@ algo debemos haber creado
 ## Bibliografía 
 
 no se q wea poner de relleno aca pero debe estar en apa
+yo cito en apa, mi mejor skill :D
 
 - https://www.mendoza.gov.ar/prensa/trastornos-del-sueno-y-sus-consecuencias-dormir-no-es-descansar/#:~:text=Se%20denomina%20trastornos%20del%20sue%C3%B1o,a%20cabo%20un%20buen%20dormir.
 
