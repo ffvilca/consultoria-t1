@@ -185,11 +185,11 @@ Los trastornos del sueño abarcan una variedad de alteraciones en los patrones d
 
 ### Horas de Sueño:
 
-Para comenzar el análisis, se realizará una comparación entre las horas de sueño en la semana y las horas de sueño el fin de semana del total de la población encuestada. 
+Para comenzar el análisis, se realizará una comparación entre las horas de sueño en la semana y las horas de sueño el fin de semana del total de la muestra encuestada. 
 
 ```{r}
 #| label: fig-f1
-#| fig-cap: "titulo"
+#| fig-cap: "Comparación de horas de sueño días de semana v/s fin de semana"
 
 ggplot() +
   geom_histogram(data = datitos2, aes(x = ts5, fill = "Horas de sueño en la semana"), alpha = 0.7, color = "white", bins = 20) +
