@@ -80,8 +80,10 @@ plotly::ggplotly(graf2, tooltip = "text")
 
 #### resumen de datos generales
 
-table(datitos2$Nivel_Educ)
-table(datitos2$Sexo)
+table(datitos2$Nivel_Educ)  %>% 
+  prop.table()
+table(datitos2$Sexo) %>% 
+  prop.table()
 table(datitos$Edad_Codificada)
 table(datitos$AREA)
 
@@ -149,7 +151,7 @@ datitos %>%
 
 # 1=Masculino  2=Femenino
 
-datitos %>% 
+datitos2 %>% 
   mutate(Sexo_2 = ifelse(Sexo == 1,"Masculino","Femenino")) %>% 
   group_by(Sexo_2) %>% 
   summarise(Cantidad = n()) %>% 

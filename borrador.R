@@ -180,3 +180,19 @@ tablita <- table(datitos2$est_nut,datitos2$trastorno_suegno)
 
 
 chisq.test(tablita)
+
+
+# \onecolumn
+# \begin{center}
+# \vfill
+# \LARGE Nutrición, Sueño y Salud: Un Análisis Estadístico \\[10pt]
+# \large EYP3007 - Consultoría Estadística \\[10pt]
+# Constanza Segovia González \\ Francisca Vilca Sánchez
+# \vfill
+# \end{center}
+# \twocolumn
+# 
+# \newpage
+
+
+
