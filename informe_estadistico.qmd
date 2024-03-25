@@ -125,7 +125,7 @@ Como se mencionó anteriormente, para la creación de este trabajo se utiliza un
   \label{tab:resultados}
 \end{table}
 
-- Nivel Educacional: En la Tabla 2, vemos que la muestra presenta enn general un nivel Alto de Educación que, es decir más de 12 años estudiando.
+- Nivel Educacional: En la Tabla 2, se observa que la muestra presenta en general un nivel Alto de Educación que, es decir más de 12 años estudiando.
 
 \begin{table}[H]
   \centering
@@ -142,7 +142,7 @@ Como se mencionó anteriormente, para la creación de este trabajo se utiliza un
   \label{tab:resultados}
 \end{table}
 
-- Zona Geográfica: lo mismo q con el otro
+- Zona Geográfica: En la Tabla 3, se puede ver que la muestra presenta mayormente a personas que habitan en RM.
 
 \begin{table}[H]
   \centering
@@ -161,7 +161,7 @@ Como se mencionó anteriormente, para la creación de este trabajo se utiliza un
   \label{tab:resultados}
 \end{table}
 
-- Sexo: le pondria género pero el profe 
+- Sexo: En la Tabla 4, se observa que la muestra está compuesta en un 57% de sexo femenino.
 
 \begin{table}[H]
   \centering
@@ -209,6 +209,8 @@ El gráfico revela que la mayoría de la población, tanto durante la semana com
 
 ### Trastorno del Sueño 
 
+Se analizará el comportamiento de la muestra en relación con la presencia o ausencia de algún trastorno del sueño. Este diagnóstico se basa en aquellos individuos que respondieron afirmativamente a al menos una de las preguntas formuladas por la Encuesta Nacional de Salud (ENS) en etapas anteriores.
+
 ```{r}
 #| label: fig-f2
 #| fig-cap: "titulo2"
@@ -233,11 +235,15 @@ datitos2 %>%
   
 ```
 
+En la Figura 2 se muestra un gráfico que ilustra la prevalencia del trastorno del sueño dentro de la muestra examinada. Según los resultados, aproximadamente el 61% de los participantes de la muestra fueron identificados como personas que padecen trastorno del sueño. 
+
 ### Sospecha de Apnea
+
+El estudio de la sospecha de apnea puede ser útil para evaluar si la presencia de apnea del sueño tiene un impacto directo en los resultados obtenidos, o si esta condición se justifica por algún tipo de estado nutricional. Al examinar la relación entre la sospecha de apnea y el estado nutricional, podríamos identificar posibles asociaciones o correlaciones entre estas variables. Esto podría ayudarnos a comprender mejor cómo factores como el peso corporal o el índice de masa corporal (IMC) pueden estar relacionados con la presencia de apnea del sueño y, a su vez, cómo estas condiciones pueden influir en otros aspectos de la salud y los resultados obtenidos en el estudio.
 
 ```{r}
 #| label: fig-f3
-#| fig-cap: "titulo3"
+#| fig-cap: "Sospecha de Apnea en los individuos de la muestra"
 
 datitos2 %>% 
   group_by(sospecha_apnea) %>% 
@@ -257,11 +263,16 @@ datitos2 %>%
   theme_minimal()
 ```
 
+En la Figura 3, se destaca que alrededor del 96% de la población no muestra signos de sospecha de apnea del sueño. Esto podría explicarse por el hecho de que para ser considerado sospechoso de apnea, un individuo debía cumplir con múltiples condiciones adicionales. Entre estas condiciones se encontraban roncar casi todas las noches, experimentar episodios de interrupción de la respiración durante el sueño y tener dificultades para mantenerse despierto durante el día.
+
+
 ## Estado Nutricional
+
+El Estado Nutricional es otro conjunto de variables de interés para determinar la posible relación con el trastorno del sueño. Entre estas variables, destaca principalmente el Estado Nutricional, que clasifica el estado de salud del individuo según diferentes valores. Algunos de estos valores se repiten con respecto a los que se presentan, lo que convierte a esta variable en un buen resumen de la categoría.
 
 ```{r}
 #| label: fig-f4
-#| fig-cap: "titulo4"
+#| fig-cap: "Estado Nutricional de los individuos de la muestra"
 
 datos_nut <- datitos2 %>%
   filter(est_nut %in% c("Enflaquecido", "Normal", "Sobrepeso", "Obeso", "Obeso mórbido"))
@@ -286,7 +297,10 @@ datos_nut %>%
 
 ```
 
-## Relaciones entre Estado Nutricional y Trastorrno del sueño:
+De acuerdo a la Figura 4, se destaca que la mayoría de los individuos presentan Sobrepeso, mientras que no se registran casos de obesidad en la muestra. Esta información es importante tenerla en cuenta al analizar los resultados, ya que proporciona un contexto relevante sobre la distribución del estado nutricional dentro de la población estudiada.
+
+
+## Relaciones entre Estado Nutricional y Trastorno del sueño:
 
 ```{r}
 
@@ -302,6 +316,11 @@ ggplot(datitos2, aes(x = est_nut, fill=trastorno_suegno)) +
 ```
 
 
+
+## Metodología
+
+
+
 ## Conclusiones
 
 algo debemos haber creado
@@ -312,5 +331,11 @@ no se q wea poner de relleno aca pero debe estar en apa
 yo cito en apa, mi mejor skill :D
 
 - https://www.mendoza.gov.ar/prensa/trastornos-del-sueno-y-sus-consecuencias-dormir-no-es-descansar/#:~:text=Se%20denomina%20trastornos%20del%20sue%C3%B1o,a%20cabo%20un%20buen%20dormir.
+
+- https://cnnespanol.cnn.com/2022/10/19/dormir-sueno-5-horas-riesgo-salud-estudio-trax/
+
+- https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0717-75182012000100003
+
+-https://scielo.isciii.es/scielo.php?script=sci_abstract&pid=S2174-51452021000200237
 
 LOS ANEXOOOOOS DEBERIAN IR AQUÍ

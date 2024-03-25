@@ -70,16 +70,7 @@ ggplot(datitos2)
 
 ### la wea del chi-cuadrado
 
-# Crear la tabla de contingencia
-tabla_contingencia <- matrix(c(29, 401, 592, 0, 35, 42, 701, 871, 0, 67), nrow = 5, byrow = F)
-rownames(tabla_contingencia) <- c("Enflaquecido", "Normal", "Sobrepeso", "Obeso", "Obeso mórbido")
-colnames(tabla_contingencia) <- c("0", "1")
 
-# Realizar el test de chi-cuadrado
-resultado_chi_cuadrado <- chisq.test(tabla_contingencia[-4,])
-
-# Mostrar los resultados
-print(resultado_chi_cuadrado)
 
 library(rio)
 library(dplyr)
@@ -143,5 +134,27 @@ datitos2 <-  datitos %>%
 
 View(datitos2)
 
+cor.test(datitos2$imc, as.numeric(datitos2$trastorno_suegno))
+cor.test(datitos2$imc, as.numeric(datitos2$trastorno_suegno), method="spearman")
 
+cor.test(datitos2$Edad, as.numeric(datitos2$trastorno_suegno))
+cor.test(datitos$Edad_Codificada, datitos$trastorno_suegno)
 
+a = table(datitos$Edad_Codificada, datitos$trastorno_suegno)
+
+chisq.test(a)
+
+horas / estado 
+cor.test(datitos$ts6, datitos$est_nut)
+cor.test(datitos$Peso, datitos2$horas_suegno_sem)
+
+# Crear la tabla de contingencia
+tabla_contingencia <- matrix(c(29, 401, 592, 0, 35, 42, 701, 871, 0, 67), nrow = 5, byrow = F)
+rownames(tabla_contingencia) <- c("Enflaquecido", "Normal", "Sobrepeso", "Obeso", "Obeso mórbido")
+colnames(tabla_contingencia) <- c("0", "1")
+
+# Realizar el test de chi-cuadrado
+resultado_chi_cuadrado <- chisq.test(tabla_contingencia[-4,])
+
+# Mostrar los resultados
+print(resultado_chi_cuadrado)
