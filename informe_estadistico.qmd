@@ -133,7 +133,7 @@ Como se mencionó anteriormente, para la creación de este trabajo se utiliza un
   \label{tab:resultados}
 \end{table}
 
-- Nivel Educacional: En la Tabla 2, se observa que la muestra presenta en general un nivel Alto de Educación que, es decir más de 12 años estudiando.
+- Nivel Educacional: En la Tabla 2, se observa que la muestra presenta en general un nivel Medio de Educación que, es decir entre 8 y 12 años estudiando.
 
 \begin{table}[H]
   \centering
@@ -141,16 +141,16 @@ Como se mencionó anteriormente, para la creación de este trabajo se utiliza un
     \toprule
     Nivel Educacional & Porcentaje \\
     \midrule
-    Bajo    & 23.6\% \\
-    Medio   & 19.2\% \\
-    Alto    & 57.2\% \\
+    Bajo    & 21.4\% \\
+    Medio   & 57.0\% \\
+    Alto    & 21.6\% \\
     \bottomrule
   \end{tabular}
   \caption{Nivel Educacional de los individuos de la muestra}
   \label{tab:resultados}
 \end{table}
 
-- Sexo: En la Tabla 3, se observa que la muestra está compuesta en un 57% de sexo femenino.
+- Sexo: En la Tabla 3, se observa que la muestra está compuesta en un 58.9% de sexo femenino.
 
 \begin{table}[H]
   \centering
@@ -158,8 +158,8 @@ Como se mencionó anteriormente, para la creación de este trabajo se utiliza un
     \toprule
     Sexo & Porcentaje \\
     \midrule
-    Femenino    & 57.0\%  \\
-    Masculino   & 43.0\%  \\
+    Femenino    & 58.9\%  \\
+    Masculino   & 41.1\%  \\
     \bottomrule
   \end{tabular}
   \caption{Sexo de los individuos de la muestra}
@@ -311,22 +311,6 @@ datos_nut %>%
 
 De acuerdo a la @fig-f4, se destaca que la mayoría de los individuos presentan Sobrepeso, mientras que no se registran casos de obesidad en la muestra. Esta información es importante tenerla en cuenta al analizar los resultados, ya que proporciona un contexto relevante sobre la distribución del estado nutricional dentro de la población estudiada.
 
-
-## Relaciones entre Estado Nutricional y Trastorno del sueño:
-
-```{r}
-
-ggplot(datitos2, aes(x = est_nut, fill=trastorno_suegno)) +
-  geom_bar(aes(fill = trastorno_suegno), position = "dodge") +
-  scale_fill_manual(values = c("pink", "#FF69B4"), labels = c("Sin trastorno", "Con trastorno")) + 
-  labs(title = "Estado Nutricional con Trastorno de Sueño",
-       x = " ",
-       y = " ",
-       fill=" ")+
-  theme_minimal()
-
-```
-
 ## Metodología
 
 Debido a que el enfoque de este trabajo es determinar la relación entre el Trastorno del Sueño y el Estado Nutricional, resulta instintivo pensar en la correlación de las variables para determinar si hay alguna relación y con ello pensar en algún modelo que explique esta relación.
@@ -361,7 +345,7 @@ Como se ha comentado a lo largo de todo el informe se quiere probar la relación
     Enflaquecido  &   29 &  42 \\
     Normal        &  401 & 701 \\
     Sobrepeso     &  592 & 871 \\
-    Obeso         &    0 &   0 \\
+    Obeso         &  345 & 615 \\
     Obeso mórbido &   35 &  67 \\
     \bottomrule
   \end{tabular}
@@ -369,7 +353,44 @@ Como se ha comentado a lo largo de todo el informe se quiere probar la relación
   \label{tab:resultados}
 \end{table}
 
-Con la Tabla 5, se ve que quienes m
+```{r}
+tablita <- table(datitos2$est_nut,datitos2$trastorno_suegno)
+chiq1 <- chisq.test(tablita)
+
+```
+
+
+Aplicando el test Chi-Cuadrado resulta el estadístico Chi-cuadrado como `r round(as.numeric(chiq1[1]),2)` y un valor-p asociado de `r round(as.numeric(chiq1[3]),2)` por lo que si se toma una significancia al 5%, no se puede rechazar la hipótesis Nula, por lo que no se puede determinar que los datos no son independientes. Sin embargo, quienes son expertos en el tema [insetar CITA], concluyen que si hay relación entre estás variables, por lo que solo podemos concluir que para la muestra trabajada, no hay información estadística suficiente para determinar la relación entre estas variables.
+
+### Relación Trastorno del Sueño y Edad de los individuos
+
+Dado que la idea original no se logró comprobar, se intentó buscar alternativas para poder determinar si alguna otra variable tiene relación con los posibles trastornos del sueño. Nuevamente por la literatura [insertar cita], se sabe que la edad tiene relación con problemas al dormir, especificamente en el trastorno del sueño, entonces revisando la Tabla 6, como un cruce de los datos de ambas variables se tiene:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lccc}
+    \toprule
+    Edad & Sin trastorno & Con trastorno\\
+    \midrule
+    15 a 24 años  & 218 & 451 \\
+    25 a 44 años  & 492 & 874 \\
+    45 a 64 años  & 526 & 807 \\
+    65 años o más & 297 & 397 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Tabla de contingencia de Edad v/s Trastorno del Sueño}
+  \label{tab:resultados}
+\end{table}
+
+```{r}
+
+tablita2 = table(datitos$Edad_Codificada, datitos$trastorno_suegno)
+chiq2 <- chisq.test(tablita2)
+
+```
+
+Aplicando el test Chi-Cuadrado resulta el estadístico Chi-cuadrado como `r round(as.numeric(chiq2[1]),2)` y un valor-p asociado de `r round(as.numeric(chiq2[3]),2)` por lo que si se toma una significancia al 5%, se rechaza la hipótesis Nula, por lo que se concluye que los datos no son independientes con una significancia esadística del 5%. Por lo tanto, a pesar de no encontrar una relación entre los datos del trastorno del sueño y el estado nutricional, si es posible determinar que hay una dendencia con la edad.
+
 
 ## Conclusiones
 
