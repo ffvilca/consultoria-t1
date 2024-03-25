@@ -246,7 +246,7 @@ En la @fig-f2 se ilustra la prevalencia del Trastorno del sueño dentro de la mu
 
 ### Sospecha de Apnea
 
-El estudio de la Sospecha de Apnea es útil para evaluar si hay presencia de apnea en el sueño lo cuál tiene un impacto directo en los resultados obtenidos anteriormente. Al examinar la relación entre la Sospecha de apnea y el Estado nutricional, podríamos identificar posibles asociaciones o correlaciones entre estas variables. Esto podría ayudarnos a comprender mejor cómo factores como el peso corporal o el índice de masa corporal (IMC) pueden estar relacionados con la presencia de apnea del sueño y, a su vez, cómo estas condiciones pueden influir en otros aspectos de la salud y los resultados obtenidos en el estudio.
+El estudio de la Sospecha de Apnea es útil para evaluar si hay presencia de apnea en el sueño lo cuál tiene un impacto directo en los resultados obtenidos anteriormente. Al examinar la relación entre la Sospecha de apnea y el Estado nutricional, se podría identificar posibles asociaciones o correlaciones entre estas variables. Esto podría ayudar a comprender mejor cómo factores como el peso corporal o el Índice de Masa Corporal (IMC) pueden estar relacionados con la presencia de apnea del sueño y, a su vez, cómo estas condiciones pueden influir en otros aspectos de la salud y los resultados obtenidos en el estudio.
 
 ```{r}
 #| label: fig-f3
@@ -270,7 +270,7 @@ datitos2 %>%
   theme_minimal()
 ```
 
-En la Figura 3, se destaca que alrededor del 96% de la población no muestra signos de sospecha de apnea del sueño. Esto podría explicarse por el hecho de que para ser considerado sospechoso de apnea, un individuo debía cumplir con múltiples condiciones adicionales. Entre estas condiciones se encontraban roncar casi todas las noches, experimentar episodios de interrupción de la respiración durante el sueño y tener dificultades para mantenerse despierto durante el día.
+En la @fig-f3, se destaca que alrededor del 96% de la población no muestra signos de sospecha de apnea del sueño. Esto podría explicarse por el hecho de que para ser considerado sospechoso de apnea, un individuo debía cumplir con múltiples condiciones adicionales. Entre estas, se encuentra roncar casi todas las noches, experimentar episodios de interrupción de la respiración durante el sueño y tener dificultades para mantenerse despierto durante el día.
 
 
 ## Estado Nutricional
@@ -304,7 +304,7 @@ datos_nut %>%
 
 ```
 
-De acuerdo a la Figura 4, se destaca que la mayoría de los individuos presentan Sobrepeso, mientras que no se registran casos de obesidad en la muestra. Esta información es importante tenerla en cuenta al analizar los resultados, ya que proporciona un contexto relevante sobre la distribución del estado nutricional dentro de la población estudiada.
+De acuerdo a la @fig-f4, se destaca que la mayoría de los individuos presentan Sobrepeso, mientras que no se registran casos de obesidad en la muestra. Esta información es importante tenerla en cuenta al analizar los resultados, ya que proporciona un contexto relevante sobre la distribución del estado nutricional dentro de la población estudiada.
 
 
 ## Relaciones entre Estado Nutricional y Trastorno del sueño:
@@ -326,6 +326,9 @@ ggplot(datitos2, aes(x = est_nut, fill=trastorno_suegno)) +
 
 ## Metodología
 
+Debido a que el enfoque de este trabajo es determinar la relación entre el Trastorno del Sueño y el Estado Nutricional, resulta instintivo pensar en la correlación de las variables para determinar si hay alguna relación y con ello pensar en algún modelo que explique esta relación.
+
+un Test Chi-Cuadrado para comparar la relación que eciste
 
 
 ## Conclusiones
@@ -334,12 +337,10 @@ algo debemos haber creado
 
 ## Bibliografía 
 
-falta citar en APA
+- A, S. D., De la C, N. F., Q, S. V., G, G. C., & N, V. D. (2012). RELACIÓN ENTRE ESTADO NUTRICIONAL y SUEÑO EN ESCOLARES DE LA COMUNA DE SAN MIGUEL, SANTIAGO, CHILE. Revista Chilena de Nutrición, 39(1), 30-37. https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0717-75182012000100003
 
-- https://www.mendoza.gov.ar/prensa/trastornos-del-sueno-y-sus-consecuencias-dormir-no-es-descansar/#:~:text=Se%20denomina%20trastornos%20del%20sue%C3%B1o,a%20cabo%20un%20buen%20dormir.
+- “Dormir no es descansar”: los trastornos del sueño y sus consecuencias: Prensa Gobierno de Mendoza. (s.f) https://www.mendoza.gov.ar/prensa/trastornos-del-sueno-y-sus-consecuencias-dormir-no-es-descansar/#:~:text=Se%20denomina%20trastornos%20del%20sueño,a%20cabo%20un%20buen%20dormir. 
 
-- https://cnnespanol.cnn.com/2022/10/19/dormir-sueno-5-horas-riesgo-salud-estudio-trax/
+- Martinovic, P. A. A., Barria, A. M. M., Morales, M., Vidal, C. D., & Santana, J. L. (2021). Estado Nutricional, Hábitos alimentarios, Actividad física y Horas de Sueño en estudiantes de la Patagonia Chilena según las estaciones del año: Estudio Observacional. Revista Española de Nutrición Humana y Dietética, 25(2), 237-245. https://scielo.isciii.es/scielo.php?script=sci_abstract&pid=S2174-51452021000200237
 
-- https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0717-75182012000100003
-
--https://scielo.isciii.es/scielo.php?script=sci_abstract&pid=S2174-51452021000200237
+- Olivertapia. (2022, 19 octubre) Las personas que duermen 5 horas o menos por noche enfrentan un mayor riesgo de múltiples problemas de salud a medida que envejecen, según un estudio. CNN. https://cnnespanol.cnn.com/2022/10/19/dormir-sueno-5-horas-riesgo-salud-estudio-trax/
