@@ -276,7 +276,7 @@ datitos2 %>%
   theme_minimal()
 ```
 
-En la @fig-f3, se destaca que alrededor del 96% de la población no muestra signos de sospecha de apnea del sueño. Esto podría explicarse por el hecho de que para ser considerado sospechoso de apnea, un individuo debía cumplir con múltiples condiciones adicionales. Entre estas, se encuentra roncar casi todas las noches, experimentar episodios de interrupción de la respiración durante el sueño y tener dificultades para mantenerse despierto durante el día.
+En la @fig-f3, se destaca que alrededor del 96% de la muestra no presenta signos de sospecha de apnea del sueño. Esto podría explicarse por el hecho de que para ser considerado sospechoso de apnea, un individuo debía cumplir con múltiples condiciones adicionales. Entre estas, se encuentra roncar casi todas las noches, experimentar episodios de interrupción de la respiración durante el sueño y tener dificultades para mantenerse despierto durante el día.
 
 
 ## Estado Nutricional
@@ -309,11 +309,11 @@ datos_nut %>%
 ```
 
 
-De acuerdo a la @fig-f4, se destaca que la mayoría de los individuos presentan Sobrepeso, mientras que no se registran casos de obesidad en la muestra. Esta información es importante tenerla en cuenta al analizar los resultados, ya que proporciona un contexto relevante sobre la distribución del estado nutricional dentro de la población estudiada.
+De acuerdo a la @fig-f4, se destaca que la mayoría de los individuos presentan Sobrepeso, mientras que apenas se registran casos de "Enflaquecido" y "Obeso mórbido". Esta información es crucial al analizar los resultados, ya que ofrece un contexto significativo sobre la distribución del estado nutricional dentro de la población estudiada.
 
 ## Metodología
 
-Debido a que el enfoque de este trabajo es determinar la relación entre el Trastorno del Sueño y el Estado Nutricional, resulta instintivo pensar en la correlación de las variables para determinar si hay alguna relación y con ello pensar en algún modelo que explique esta relación.
+Dado que el objetivo principal de este trabajo es investigar la relación entre el Trastorno del Sueño y el Estado Nutricional, resulta natural considerar la correlación entre estas variables para determinar si existe alguna asociación entre ellas. Esta correlación puede proporcionar información crucial para entender la naturaleza y la fuerza de la relación entre ambos aspectos de la salud. Además, explorar modelos estadísticos puede ayudar a explicar esta relación de manera más detallada, lo que podría conducir a una comprensión más profunda de los mecanismos subyacentes y las implicaciones clínicas de dicha asociación.
 
 ```{r}
 #| label: fig-f6
@@ -328,13 +328,14 @@ ggcorrplot::ggcorrplot(cor(datitos3))
 ```
 
 
-De la @fig-f6 vemos que la correlación es alta entre las variables del mismo grupo, es decir entre las que pertenecen al grupo de Estado Nutricional o las que se dan por defecto con Estado Nutricional. Por lo que vemos que un modelo lineal no es una buena opción para buscar relación entre los datos. Esto se debe también a que muchas variables del grupo del Trastorno del Sueño son dicotómicas.
+En la @fig-f6, se observa una alta correlación entre las variables dentro del mismo grupo, ya sea en el grupo del Estado Nutricional o en el grupo del Trastorno del Sueño. Esto implica que un modelo lineal no sería la mejor opción para buscar una relación entre los datos, especialmente considerando que muchas variables en el grupo del Trastorno del Sueño son dicotómicas.
 
-Debido a lo anterior, se busca una alternativa para determinar si hay relación entre las variables, pues según diversos estudios (1), determinan que los problemas del sueño tienen relación con problemas de salud, por lo que una forma de probar esto es mediante el uso del Test Chi-Cuadrado para comparar la relación que existe. 
+Dado este escenario, se busca una alternativa para determinar si existe una relación significativa entre las variables. Varios estudios han sugerido que los problemas del sueño están relacionados con problemas de salud, lo que motiva la búsqueda de una prueba estadística que pueda probar esta hipótesis. Una opción adecuada para este propósito es el Test Chi-Cuadrado, que permite comparar la relación entre variables categóricas y determinar si esta relación es significativa. Esta prueba nos ayudará a evaluar si hay una asociación entre el Trastorno del Sueño y el Estado Nutricional en nuestra muestra de datos.
 
 ### Relación Trastorno del Sueño y Estado Nutricional
 
-Como se ha comentado a lo largo de todo el informe se quiere probar la relación entre estás variables, por lo que usando el Test Chi-Cuadrado cuyo objetivo es rechazar la hipótesis nula que dice: "*Las variables son independientes*". Ahora bien revisando la Tabla 5, se tiene:
+
+Como se ha discutido a lo largo de todo el informe, el objetivo principal es probar la relación entre estas variables. Para lograr esto, se empleará el Test Chi-Cuadrado, cuyo propósito es rechazar la hipótesis nula que afirma que *Las variables son independientes*. Al revisar la Tabla 5, se presenta:
 
 \begin{table}[H]
   \centering
@@ -360,11 +361,12 @@ chiq1 <- chisq.test(tablita)
 ```
 
 
-Aplicando el test Chi-Cuadrado resulta el estadístico Chi-cuadrado como `r round(as.numeric(chiq1[1]),2)` y un valor-p asociado de `r round(as.numeric(chiq1[3]),2)` por lo que si se toma una significancia al 5%, no se puede rechazar la hipótesis Nula, por lo que no se puede determinar que los datos no son independientes. Sin embargo, quienes son expertos en el tema [insetar CITA], concluyen que si hay relación entre estás variables, por lo que solo podemos concluir que para la muestra trabajada, no hay información estadística suficiente para determinar la relación entre estas variables.
+Aplicando el test Chi-Cuadrado, se obtiene un estadístico Chi-cuadrado de `r round(as.numeric(chiq1[1]),2)` y un valor-p asociado de `r round(as.numeric(chiq1[3]),2)`. Al considerar una significancia del 5%, no se puede rechazar la hipótesis nula, lo que indica que no podemos concluir que los datos no son independientes. Sin embargo, según expertos, "Para aquellos de 50 años a quienes se dio seguimiento a sus patrones de sueño, las personas que dormían cinco horas o menos por noche enfrentaban un riesgo 30% mayor de desarrollar múltiples enfermedades crónicas con el tiempo que aquellos que dormían al menos siete horas por noche. A los 60, el riesgo era un 32% mayor, y a los 70, era un riesgo un 40% mayor." (CNN en Español, 2022). Por lo tanto, en base a la muestra analizada, no disponemos de suficiente información estadística para determinar la relación entre estas variables.
+
 
 ### Relación Trastorno del Sueño y Edad de los individuos
 
-Dado que la idea original no se logró comprobar, se intentó buscar alternativas para poder determinar si alguna otra variable tiene relación con los posibles trastornos del sueño. Nuevamente por la literatura [insertar cita], se sabe que la edad tiene relación con problemas al dormir, especificamente en el trastorno del sueño, entonces revisando la Tabla 6, como un cruce de los datos de ambas variables se tiene:
+Dado que la idea original no pudo ser confirmada, se exploraron alternativas para determinar si alguna otra variable está relacionada con los posibles trastornos del sueño. Según la literatura, se sabe que "los trastornos del sueño son muy frecuentes en los ancianos" (Gómez-García, 2007). Por lo tanto, al analizar la Tabla 6, se realizó un cruce de datos entre ambas variables.
 
 \begin{table}[H]
   \centering
@@ -389,17 +391,17 @@ chiq2 <- chisq.test(tablita2)
 
 ```
 
-Aplicando el test Chi-Cuadrado resulta el estadístico Chi-cuadrado como `r round(as.numeric(chiq2[1]),2)` y un valor-p asociado de `r round(as.numeric(chiq2[3]),2)` por lo que si se toma una significancia al 5%, se rechaza la hipótesis Nula, por lo que se concluye que los datos no son independientes con una significancia esadística del 5%. Por lo tanto, a pesar de no encontrar una relación entre los datos del trastorno del sueño y el estado nutricional, si es posible determinar que hay una dendencia con la edad.
-
+Aplicando el test Chi-Cuadrado resulta el estadístico Chi-cuadrado como `r round(as.numeric(chiq2[1]),2)` y un valor-p asociado de `r round(as.numeric(chiq2[3]),2)`, con una significancia del 5%, se rechaza la hipótesis nula, lo que indica que los datos no son independientes y sugiere una relación entre el trastorno del sueño y la variable de edad. A pesar de no encontrar una relación entre los datos del trastorno del sueño y el estado nutricional, sí es posible determinar que existe una tendencia con la edad.
 
 ## Conclusiones
 
+Se puede concluir que, a pesar de la amplia evidencia que sugiere una relación entre el estado nutricional y los trastornos del sueño, los análisis estadísticos realizados no han logrado corroborar esta asociación en la muestra estudiada. Aunque se esperaba encontrar una conexión significativa entre ambas variables, los resultados obtenidos indican que no hay suficiente evidencia para afirmar una relación directa entre el estado nutricional y los trastornos del sueño en la población analizada.
 
-Es interesante observar que, a pesar de las distintas fuentes que confirman la relación directa entre el Estado Nutricional y la presencia de algún trastorno del sueño, los análisis estadísticos realizados hasta el momento no han evidenciado tal relación. Por lo tanto, se sugiere llevar a cabo un estudio más minucioso que pueda proporcionar una comprensión más completa de esta relación.
+Este hallazgo resalta la complejidad de los factores que pueden influir en los trastornos del sueño y la necesidad de considerar múltiples variables para comprender mejor esta relación. Se sugiere que futuras investigaciones exploren otros factores que podrían estar involucrados, como los hábitos alimenticios, la actividad física y el estilo de vida en general. Estos aspectos podrían ofrecer una visión más completa de los determinantes de los trastornos del sueño y su relación con el estado nutricional.
 
-Una opción sería considerar variables adicionales que podrían influir en la relación entre el Estado Nutricional y los trastornos del sueño, como los hábitos alimenticios o la actividad física. Estas variables podrían ofrecer una perspectiva más completa y detallada de los factores que contribuyen a los trastornos del sueño.
+Además, se destaca la importancia de llevar a cabo estudios experimentales más detallados que permitan controlar variables adicionales y establecer relaciones causales entre el estado nutricional y los trastornos del sueño. Esto podría proporcionar una comprensión más sólida de la influencia que el estado nutricional tiene en la calidad del sueño y sus implicaciones para la salud pública.
 
-Además, se podría considerar la realización de un estudio experimental para investigar más a fondo la relación entre el Estado Nutricional y los trastornos del sueño, que permitiría controlar más variables y establecer relaciones de causa y efecto de manera más sólida.
+Aunque los resultados actuales no respaldan una asociación directa entre el estado nutricional y los trastornos del sueño en la muestra analizada, se plantea la necesidad de investigaciones futuras más exhaustivas para explorar esta relación en profundidad y comprender mejor los factores que la influencian.
 
 \newpage
 \onecolumn
@@ -408,8 +410,10 @@ Además, se podría considerar la realización de un estudio experimental para i
 
 1. A, S. D., De la C, N. F., Q, S. V., G, G. C., & N, V. D. (2012). RELACIÓN ENTRE ESTADO NUTRICIONAL y SUEÑO EN ESCOLARES DE LA COMUNA DE SAN MIGUEL, SANTIAGO, CHILE. Revista Chilena de Nutrición, 39(1), 30-37. https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0717-75182012000100003
 
-2. “Dormir no es descansar”: los trastornos del sueño y sus consecuencias: Prensa Gobierno de Mendoza. (s.f) https://www.mendoza.gov.ar/prensa/trastornos-del-sueno-y-sus-consecuencias-dormir-no-es-descansar/#:~:text=Se%20denomina%20trastornos%20del%20sueño,a%20cabo%20un%20buen%20dormir. 
+2. CNN en Español. (2022, 19 de octubre). Dormir menos de cinco horas al día aumenta el riesgo de desarrollar múltiples enfermedades crónicas, según un estudio. CNN en Español. https://cnnespanol.cnn.com/2022/10/19/dormir-sueno-5-horas-riesgo-salud-estudio-trax/
 
-3. Martinovic, P. A. A., Barria, A. M. M., Morales, M., Vidal, C. D., & Santana, J. L. (2021). Estado Nutricional, Hábitos alimentarios, Actividad física y Horas de Sueño en estudiantes de la Patagonia Chilena según las estaciones del año: Estudio Observacional. Revista Española de Nutrición Humana y Dietética, 25(2), 237-245. https://scielo.isciii.es/scielo.php?script=sci_abstract&pid=S2174-51452021000200237
+3. Gómez-García, T., Ruzafa-Martínez, M., Fuentelsaz-Gallego, C., Madrid, J. A., & Rol, M. Á. (2007). Relación entre la calidad del sueño y la calidad de vida en estudiantes universitarios. Psicothema, 19(3), 389-394. https://scielo.isciii.es/scielo.php?script=sci_arttext&pid=S1137-66272007000200014
 
-4. Olivertapia. (2022, 19 octubre) Las personas que duermen 5 horas o menos por noche enfrentan un mayor riesgo de múltiples problemas de salud a medida que envejecen, según un estudio. CNN. https://cnnespanol.cnn.com/2022/10/19/dormir-sueno-5-horas-riesgo-salud-estudio-trax/
+4. Martinovic, P. A. A., Barria, A. M. M., Morales, M., Vidal, C. D., & Santana, J. L. (2021). Estado Nutricional, Hábitos alimentarios, Actividad física y Horas de Sueño en estudiantes de la Patagonia Chilena según las estaciones del año: Estudio Observacional. Revista Española de Nutrición Humana y Dietética, 25(2), 237-245. https://scielo.isciii.es/scielo.php?script=sci_abstract&pid=S2174-51452021000200237
+5. Prensa Gobierno de Mendoza. (s.f.). “Dormir no es descansar”: los trastornos del sueño y sus consecuencias. Recuperado de https://www.mendoza.gov.ar/prensa/trastornos-del-sueno-y-sus-consecuencias-dormir-no-es-descansar/#:~:text=Se%20denomina%20trastornos%20del%20sueño,a%20cabo%20un%20buen%20dormir.
+
