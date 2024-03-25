@@ -328,19 +328,41 @@ ggplot(datitos2, aes(x = est_nut, fill=trastorno_suegno)) +
 
 Debido a que el enfoque de este trabajo es determinar la relación entre el Trastorno del Sueño y el Estado Nutricional, resulta instintivo pensar en la correlación de las variables para determinar si hay alguna relación y con ello pensar en algún modelo que explique esta relación.
 
-un Test Chi-Cuadrado para comparar la relación que eciste
+```{r}
+#| label: fig-f6
+#| fig-cap: "Correlación"
+
+datitos3 <- datitos2 %>%
+  mutate(sospecha_apnea = as.numeric(sospecha_apnea)) %>% 
+  mutate(trastorno_suegno = as.numeric(trastorno_suegno)) %>% 
+  select(-est_nut,-Sexo_2,-Nivel_Educ_2,-horas_suegno_sem,-horas_suegno_fds)
+
+ggcorrplot::ggcorrplot(cor(datitos3))
+```
+
+
+De la @fig-f6 vemos que la correlación es alta entre las variables del mismo grupo, es decir entre las que pertenecen al grupo de Estado Nutricional o las que se dan por defecto con Estado Nutricional. Por lo que vemos que un modelo lineal no es una buena opción para buscar relación entre los datos. Esto se debe también a que muchas variables del grupo del Trastorno del Sueño son dicotómicas.
+
+Debido a lo anterior, se busca una alternativa para determinar si hay relación entre las variables, pues según diversos estudios (1), determinan que los problemas del sueño tienen relación con problemas de salud, por lo que una forma de probar esto es mediante el uso del Test Chi-Cuadrado para comparar la relación que existe. 
 
 
 ## Conclusiones
 
-algo debemos haber creado
+
+Es interesante observar que, a pesar de las distintas fuentes que confirman la relación directa entre el Estado Nutricional y la presencia de algún trastorno del sueño, los análisis estadísticos realizados hasta el momento no han evidenciado tal relación. Por lo tanto, se sugiere llevar a cabo un estudio más minucioso que pueda proporcionar una comprensión más completa de esta relación.
+
+Una opción sería considerar variables adicionales que podrían influir en la relación entre el Estado Nutricional y los trastornos del sueño, como los hábitos alimenticios o la actividad física. Estas variables podrían ofrecer una perspectiva más completa y detallada de los factores que contribuyen a los trastornos del sueño.
+
+Además, se podría considerar la realización de un estudio experimental para investigar más a fondo la relación entre el Estado Nutricional y los trastornos del sueño, que permitiría controlar más variables y establecer relaciones de causa y efecto de manera más sólida.
+
+
 
 ## Bibliografía 
 
-- A, S. D., De la C, N. F., Q, S. V., G, G. C., & N, V. D. (2012). RELACIÓN ENTRE ESTADO NUTRICIONAL y SUEÑO EN ESCOLARES DE LA COMUNA DE SAN MIGUEL, SANTIAGO, CHILE. Revista Chilena de Nutrición, 39(1), 30-37. https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0717-75182012000100003
+1. A, S. D., De la C, N. F., Q, S. V., G, G. C., & N, V. D. (2012). RELACIÓN ENTRE ESTADO NUTRICIONAL y SUEÑO EN ESCOLARES DE LA COMUNA DE SAN MIGUEL, SANTIAGO, CHILE. Revista Chilena de Nutrición, 39(1), 30-37. https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0717-75182012000100003
 
-- “Dormir no es descansar”: los trastornos del sueño y sus consecuencias: Prensa Gobierno de Mendoza. (s.f) https://www.mendoza.gov.ar/prensa/trastornos-del-sueno-y-sus-consecuencias-dormir-no-es-descansar/#:~:text=Se%20denomina%20trastornos%20del%20sueño,a%20cabo%20un%20buen%20dormir. 
+2. “Dormir no es descansar”: los trastornos del sueño y sus consecuencias: Prensa Gobierno de Mendoza. (s.f) https://www.mendoza.gov.ar/prensa/trastornos-del-sueno-y-sus-consecuencias-dormir-no-es-descansar/#:~:text=Se%20denomina%20trastornos%20del%20sueño,a%20cabo%20un%20buen%20dormir. 
 
-- Martinovic, P. A. A., Barria, A. M. M., Morales, M., Vidal, C. D., & Santana, J. L. (2021). Estado Nutricional, Hábitos alimentarios, Actividad física y Horas de Sueño en estudiantes de la Patagonia Chilena según las estaciones del año: Estudio Observacional. Revista Española de Nutrición Humana y Dietética, 25(2), 237-245. https://scielo.isciii.es/scielo.php?script=sci_abstract&pid=S2174-51452021000200237
+3. Martinovic, P. A. A., Barria, A. M. M., Morales, M., Vidal, C. D., & Santana, J. L. (2021). Estado Nutricional, Hábitos alimentarios, Actividad física y Horas de Sueño en estudiantes de la Patagonia Chilena según las estaciones del año: Estudio Observacional. Revista Española de Nutrición Humana y Dietética, 25(2), 237-245. https://scielo.isciii.es/scielo.php?script=sci_abstract&pid=S2174-51452021000200237
 
-- Olivertapia. (2022, 19 octubre) Las personas que duermen 5 horas o menos por noche enfrentan un mayor riesgo de múltiples problemas de salud a medida que envejecen, según un estudio. CNN. https://cnnespanol.cnn.com/2022/10/19/dormir-sueno-5-horas-riesgo-salud-estudio-trax/
+4. Olivertapia. (2022, 19 octubre) Las personas que duermen 5 horas o menos por noche enfrentan un mayor riesgo de múltiples problemas de salud a medida que envejecen, según un estudio. CNN. https://cnnespanol.cnn.com/2022/10/19/dormir-sueno-5-horas-riesgo-salud-estudio-trax/
