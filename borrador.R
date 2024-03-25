@@ -128,8 +128,9 @@ datitos2 <-  datitos %>%
                                    levels = c("Menos o 5 horas",
                                               "Entre 5 a 10 horas",
                                               "Más de 10 horas"))) %>%
-  na.omit() %>% 
-  select(2,4,6,11,12,c(17:20),c(23:25),28,29,c(32:35))
+  
+  select(2,4,6,11,12,c(17:20),c(23:25),28,29,c(32:35)) %>% 
+  na.omit()
 
 
 View(datitos2)
@@ -137,8 +138,8 @@ View(datitos2)
 cor.test(datitos2$imc, as.numeric(datitos2$trastorno_suegno))
 cor.test(datitos2$imc, as.numeric(datitos2$trastorno_suegno), method="spearman")
 
-cor.test(datitos2$Edad, as.numeric(datitos2$trastorno_suegno))
-cor.test(datitos$Edad_Codificada, datitos$trastorno_suegno)
+cor.test(datitos2$Edad, as.numeric(datitos2$trastorno_suegno)) # ESTEEEE
+cor.test(datitos$Edad_Codificada, datitos$trastorno_suegno)  # ESTEEEEE
 
 a = table(datitos$Edad_Codificada, datitos$trastorno_suegno)
 
@@ -154,7 +155,28 @@ rownames(tabla_contingencia) <- c("Enflaquecido", "Normal", "Sobrepeso", "Obeso"
 colnames(tabla_contingencia) <- c("0", "1")
 
 # Realizar el test de chi-cuadrado
-resultado_chi_cuadrado <- chisq.test(tabla_contingencia[-4,])
+resultado_chi_cuadrado <- chisq.test(tabla_contingencia)
 
 # Mostrar los resultados
 print(resultado_chi_cuadrado)
+
+
+prop.table(table(datitos2$est_nut,datitos2$trastorno_suegno),margin = 1)
+
+## Relaciones entre Estado Nutricional y Trastorno del sueño:
+#| label: fig-f5
+#| fig-cap: "Estado Nutricional de los individuos de la muestra"
+
+ggplot(datitos2, aes(x = est_nut, fill=trastorno_suegno)) +
+  geom_bar(aes(fill = trastorno_suegno), position = "dodge") +
+  scale_fill_manual(values = c("pink", "#FF69B4"), labels = c("Sin trastorno", "Con trastorno")) + 
+  labs(title = "Estado Nutricional con Trastorno de Sueño",
+       x = " ",
+       y = " ",
+       fill=" ")+
+  theme_minimal()
+
+tablita <- table(datitos2$est_nut,datitos2$trastorno_suegno)
+
+
+chisq.test(tablita)

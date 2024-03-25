@@ -90,8 +90,9 @@ datitos2 <-  datitos %>%
                                    levels = c("Menos o 5 horas",
                                               "Entre 5 a 10 horas",
                                               "Más de 10 horas"))) %>%
-  na.omit() %>% 
-  select(2,4,6,11,12,c(17:20),c(23:25),28,29,c(32:35))
+  
+  select(2,4,6,11,12,c(17:20),c(23:25),28,29,c(32:35)) %>% 
+  na.omit()
 
 ```
 \onecolumn
@@ -221,7 +222,9 @@ El Trastorno del Sueño se reconoce fácilmente como problemas para dormir de fo
 
 ```{r}
 #| label: fig-f2
-#| fig-cap: "titulo2"
+#| fig-cap: "Presencia de trastorno del sueño en los individuos de la muestra"
+#| fig-width: 5
+#| fig-height: 2
 
 datitos2 %>% 
   group_by(trastorno_suegno) %>% 
@@ -251,6 +254,9 @@ El estudio de la Sospecha de Apnea es útil para evaluar si hay presencia de apn
 ```{r}
 #| label: fig-f3
 #| fig-cap: "Sospecha de Apnea en los individuos de la muestra"
+#| fig-width: 5
+#| fig-height: 2
+
 
 datitos2 %>% 
   group_by(sospecha_apnea) %>% 
@@ -280,6 +286,8 @@ El Estado Nutricional es otro conjunto de variables de interés para determinar 
 ```{r}
 #| label: fig-f4
 #| fig-cap: "Estado Nutricional de los individuos de la muestra"
+#| fig-width: 5
+#| fig-height: 3
 
 datos_nut <- datitos2 %>%
   filter(est_nut %in% c("Enflaquecido", "Normal", "Sobrepeso", "Obeso", "Obeso mórbido"))
@@ -288,13 +296,9 @@ datos_nut %>%
   group_by(est_nut) %>% 
   summarise(Cantidad = n()) %>% 
   mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
-  ggplot(aes(x="",y=Porcentaje, fill= est_nut))+
-  geom_bar(stat = "identity",
-           color="white") +
-  geom_text_repel(aes(label = str_glue("{format(Porcentaje, big.mark = '.', decimal.mark = ',')}%")), 
-                  direction = "both", segment.color = "transparent", 
-                  segment.size = 0, force = 5, color = "black", size = 5) +
-  coord_polar(theta = "y")+
+  ggplot(aes(x=est_nut,y=Cantidad, fill= est_nut))+
+  geom_col(color="white") +
+  geom_text(aes(label = str_glue("{format(Cantidad, big.mark = '.', decimal.mark = ',')}\n{format(Porcentaje, big.mark = '.', decimal.mark = ',')}%")),color = "black", size = 5, position = position_stack(vjust=0.5)) +
   labs(x = "",
        y = "",
        fill = "Estado Nutricional")+
@@ -303,6 +307,7 @@ datos_nut %>%
   theme_minimal()
 
 ```
+
 
 De acuerdo a la @fig-f4, se destaca que la mayoría de los individuos presentan Sobrepeso, mientras que no se registran casos de obesidad en la muestra. Esta información es importante tenerla en cuenta al analizar los resultados, ya que proporciona un contexto relevante sobre la distribución del estado nutricional dentro de la población estudiada.
 
@@ -321,8 +326,6 @@ ggplot(datitos2, aes(x = est_nut, fill=trastorno_suegno)) +
   theme_minimal()
 
 ```
-
-
 
 ## Metodología
 
@@ -345,6 +348,28 @@ De la @fig-f6 vemos que la correlación es alta entre las variables del mismo gr
 
 Debido a lo anterior, se busca una alternativa para determinar si hay relación entre las variables, pues según diversos estudios (1), determinan que los problemas del sueño tienen relación con problemas de salud, por lo que una forma de probar esto es mediante el uso del Test Chi-Cuadrado para comparar la relación que existe. 
 
+### Relación Trastorno del Sueño y Estado Nutricional
+
+Como se ha comentado a lo largo de todo el informe se quiere probar la relación entre estás variables, por lo que usando el Test Chi-Cuadrado cuyo objetivo es rechazar la hipótesis nula que dice: "*Las variables son independientes*". Ahora bien revisando la Tabla 5, se tiene:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lccc}
+    \toprule
+    Estado Nutricional & Sin trastorno & Con trastorno\\
+    \midrule
+    Enflaquecido  &   29 &  42 \\
+    Normal        &  401 & 701 \\
+    Sobrepeso     &  592 & 871 \\
+    Obeso         &    0 &   0 \\
+    Obeso mórbido &   35 &  67 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Tabla de contingencia de Estado Nutricional v/s Trastorno del Sueño}
+  \label{tab:resultados}
+\end{table}
+
+Con la Tabla 5, se ve que quienes m
 
 ## Conclusiones
 
@@ -355,7 +380,8 @@ Una opción sería considerar variables adicionales que podrían influir en la r
 
 Además, se podría considerar la realización de un estudio experimental para investigar más a fondo la relación entre el Estado Nutricional y los trastornos del sueño, que permitiría controlar más variables y establecer relaciones de causa y efecto de manera más sólida.
 
-
+\newpage
+\onecolumn
 
 ## Bibliografía 
 
