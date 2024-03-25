@@ -143,5 +143,13 @@ datitos2 <-  datitos %>%
 
 View(datitos2)
 
+datitos3 <- datitos2 %>% 
+  #mutate(trastorno_suegno = as.numeric(trastorno_suegno)) %>% 
+  select(trastorno_suegno,Edad,ts5,ts6,imc,Circ_cintura,Circ_cuello)
 
+modelo <- glm(trastorno_suegno ~., datitos3, family = binomial(link = "logit"))
 
+summary(modelo)
+anova(modelo)
+
+# no funciono pipipipipi 
