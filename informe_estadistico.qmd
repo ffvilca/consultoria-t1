@@ -94,6 +94,13 @@ datitos2 <-  datitos %>%
   select(2,4,6,11,12,c(17:20),c(23:25),28,29,c(32:35))
 
 ```
+\onecolumn
+\newpage
+
+\tableofcontents
+
+\newpage
+\twocolumn
 
 ## Introducción
 
@@ -142,7 +149,23 @@ Como se mencionó anteriormente, para la creación de este trabajo se utiliza un
   \label{tab:resultados}
 \end{table}
 
-- Zona Geográfica: En la Tabla 3, se puede ver que la muestra presenta mayormente a personas que habitan en RM.
+- Sexo: En la Tabla 3, se observa que la muestra está compuesta en un 57% de sexo femenino.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    Sexo & Porcentaje \\
+    \midrule
+    Femenino    & 57.0\%  \\
+    Masculino   & 43.0\%  \\
+    \bottomrule
+  \end{tabular}
+  \caption{Sexo de los individuos de la muestra}
+  \label{tab:resultados}
+\end{table}
+
+- Zona Geográfica: En la Tabla 4, se puede ver que la muestra presenta mayormente a personas que habitan en RM.
 
 \begin{table}[H]
   \centering
@@ -161,22 +184,7 @@ Como se mencionó anteriormente, para la creación de este trabajo se utiliza un
   \label{tab:resultados}
 \end{table}
 
-- Sexo: En la Tabla 4, se observa que la muestra está compuesta en un 57% de sexo femenino.
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{lcc}
-    \toprule
-    Sexo & Porcentaje \\
-    \midrule
-    Femenino    & 57.0\%  \\
-    Masculino   & 43.0\%  \\
-    \bottomrule
-  \end{tabular}
-  \caption{Sexo de los individuos de la muestra}
-  \label{tab:resultados}
-\end{table}
-
+Con este resumen de los datos de la muestra ya se tiene el conocimiento sobre como es esta, por lo que ahora se introducirán los 2 temas sobre los cuales interesa entender el comportamiento de los individuos.
 
 ## Trastorno del Sueño
 
@@ -205,11 +213,11 @@ ggplot() +
 
 ```
 
-El gráfico revela que la mayoría de la población, tanto durante la semana como los fines de semana, duerme alrededor de 8 horas. Esto sugiere que hay una tendencia generalizada hacia un patrón de sueño de aproximadamente 8 horas por noche en la población estudiada. Sin embargo, se observa que durante el fin de semana, hay un aumento en el número de horas de sueño en comparación con los días laborales. Este fenómeno es común y refleja la práctica extendida de "compensar" el sueño perdido durante la semana laboral mediante un mayor descanso durante los fines de semana.
+La @fig-f1 revela que la mayoría de la muestra, tanto durante la semana como los fines de semana, duerme alrededor de 8 horas. Esto sugiere que hay una tendencia generalizada hacia un patrón de sueño de aproximadamente 8 horas por noche en la muestra estudiada. Sin embargo, se ve que durante el fin de semana, hay un aumento en el número de horas de sueño en comparación con los días laborales. Este fenómeno es común y refleja la práctica extendida de "compensar" el sueño perdido durante la semana laboral mediante un mayor descanso durante los fines de semana.
 
 ### Trastorno del Sueño 
 
-Se analizará el comportamiento de la muestra en relación con la presencia o ausencia de algún trastorno del sueño. Este diagnóstico se basa en aquellos individuos que respondieron afirmativamente a al menos una de las preguntas formuladas por la Encuesta Nacional de Salud (ENS) en etapas anteriores.
+El Trastorno del Sueño se reconoce fácilmente como problemas para dormir de forma contínua en la noche, para entender si la muestra padece de este problema, se analizará la presencia o ausencia de algún Trastorno del Sueño. Este diagnóstico se basa en aquellos individuos que respondieron afirmativamente a al menos una de las preguntas formuladas por la Encuesta Nacional de Salud (ENS) en etapas anteriores.
 
 ```{r}
 #| label: fig-f2
@@ -232,14 +240,13 @@ datitos2 %>%
                     ,labels = c("No", "Si")
                     )+
   theme_minimal()
-  
 ```
 
-En la Figura 2 se muestra un gráfico que ilustra la prevalencia del trastorno del sueño dentro de la muestra examinada. Según los resultados, aproximadamente el 61% de los participantes de la muestra fueron identificados como personas que padecen trastorno del sueño. 
+En la @fig-f2 se ilustra la prevalencia del Trastorno del sueño dentro de la muestra examinada. Según los resultados, aproximadamente el 61% de los participantes de la muestra fueron identificados como personas que padecen este problema. 
 
 ### Sospecha de Apnea
 
-El estudio de la sospecha de apnea puede ser útil para evaluar si la presencia de apnea del sueño tiene un impacto directo en los resultados obtenidos, o si esta condición se justifica por algún tipo de estado nutricional. Al examinar la relación entre la sospecha de apnea y el estado nutricional, podríamos identificar posibles asociaciones o correlaciones entre estas variables. Esto podría ayudarnos a comprender mejor cómo factores como el peso corporal o el índice de masa corporal (IMC) pueden estar relacionados con la presencia de apnea del sueño y, a su vez, cómo estas condiciones pueden influir en otros aspectos de la salud y los resultados obtenidos en el estudio.
+El estudio de la Sospecha de Apnea es útil para evaluar si hay presencia de apnea en el sueño lo cuál tiene un impacto directo en los resultados obtenidos anteriormente. Al examinar la relación entre la Sospecha de apnea y el Estado nutricional, podríamos identificar posibles asociaciones o correlaciones entre estas variables. Esto podría ayudarnos a comprender mejor cómo factores como el peso corporal o el índice de masa corporal (IMC) pueden estar relacionados con la presencia de apnea del sueño y, a su vez, cómo estas condiciones pueden influir en otros aspectos de la salud y los resultados obtenidos en el estudio.
 
 ```{r}
 #| label: fig-f3
