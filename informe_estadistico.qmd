@@ -107,76 +107,75 @@ El objetivo de este análisis es explorar la interacción entre estos dos domini
 
 Como se mencionó anteriormente, para la creación de este trabajo se utiliza una muestra con `r nrow(datos)` individuos. Sin embargo, dado que existen datos faltantes dentro de la muestra a trabajar para las categorías que se van a utilizar, finalmente se usará una base con `r nrow(datitos2)` individuos. Con esta muestra se pueden revisar algunas características a nivel general como:
 
-- Edad: En la @tbl-t1, es posible observar que la muestra se concentra principalmente en individuos entre 25 a 44 años y 45 a 64 años.
+- Edad: En la Tabla 1, es posible observar que la muestra se concentra principalmente en individuos entre 25 a 44 años y 45 a 64 años.
 
-```{r}
-#| label: tbl-t1
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    Edad & Porcentaje \\
+    \midrule
+    15 a 24 años  & 15.7\% \\
+    25 a 44 años  & 33.0\% \\
+    45 a 64 años  & 32.5\% \\
+    65 años o más & 18.8\% \\
+    \bottomrule
+  \end{tabular}
+  \caption{Edad de los individuos de la muestra}
+  \label{tab:resultados}
+\end{table}
 
-datitos %>% 
-  group_by(Edad_Codificada_2) %>% 
-  summarise(Cantidad = n()) %>% 
-  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
-  select(1,3) %>% 
-  kable(digits = 2, align = "c",booktabs = TRUE,
-        col.names = c("Edad","Porcentaje"),
-        format.args=list(decimal.mark=',', big.mark = '.')) %>%
-  kable_minimal()  %>%
-  kable_styling(full_width = FALSE)
-```
+- Nivel Educacional: En la Tabla 2, vemos que la muestra presenta enn general un nivel Alto de Educación que, es decir más de 12 años estudiando.
 
-- Nivel Educacional: En la @tbl-t2, vemos que la muestra presenta enn general un nivel Alto de Educación que, es decir más de 12 años estudiando.
-
-```{r}
-#| label: tbl-t2
-
-datitos2 %>%
-  group_by(Nivel_Educ_2) %>% 
-  summarise(Cantidad = n()) %>% 
-  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
-  select(1,3) %>% 
-  kable(digits = 2, align = "c",booktabs = TRUE,
-        col.names = c("Nivel Educacional", "Porcentaje"),
-        format.args=list(decimal.mark=',', big.mark = '.')) %>%
-  kable_minimal()  %>%
-  kable_styling(full_width = FALSE)
-```
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    Nivel Educacional & Porcentaje \\
+    \midrule
+    Bajo    & 23.6\% \\
+    Medio   & 19.2\% \\
+    Alto    & 57.2\% \\
+    \bottomrule
+  \end{tabular}
+  \caption{Nivel Educacional de los individuos de la muestra}
+  \label{tab:resultados}
+\end{table}
 
 - Zona Geográfica: lo mismo q con el otro
 
-```{r}
-#| label: tbl-t3
-
-datitos %>%
-  group_by(AREA_2) %>% 
-  summarise(Cantidad = n()) %>% 
-  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
-  select(1,3) %>% 
-  kable(digits = 2, align = "c",booktabs = TRUE,
-        col.names = c("Área", "Porcentaje"),
-        format.args=list(decimal.mark=',', big.mark = '.')) %>%
-  kable_minimal()  %>%
-  kable_styling(full_width = FALSE)
-```
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    Zona Geográfica & Porcentaje \\
+    \midrule
+    Norte   &    15.2\% \\
+    Centro  &    17.0\% \\
+    RM      &    26.4\% \\
+    C-Sur   &    19.6\% \\
+    Sur     &    21.8\% \\
+    \bottomrule
+  \end{tabular}
+  \caption{Zona Geográfica de los individuos de la muestra}
+  \label{tab:resultados}
+\end{table}
 
 - Sexo: le pondria género pero el profe 
 
-```{r}
-#| label: tbl-t4
-
-# 1=Masculino  2=Femenino
-
-datitos2 %>% 
-  mutate(Sexo_2 = ifelse(Sexo == 1,"Masculino","Femenino")) %>% 
-  group_by(Sexo_2) %>% 
-  summarise(Cantidad = n()) %>% 
-  mutate(Porcentaje = round(Cantidad / sum(Cantidad) * 100,2)) %>% 
-  select(1,3) %>% 
-  kable(digits = 2, align = "c",booktabs = TRUE,
-        col.names = c("Sexo","Porcentaje"),
-        format.args=list(decimal.mark=',', big.mark = '.')) %>%
-  kable_minimal() %>%
-  kable_styling(full_width = FALSE)
-```
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    Sexo & Porcentaje \\
+    \midrule
+    Femenino    & 57.0\%  \\
+    Masculino   & 43.0\%  \\
+    \bottomrule
+  \end{tabular}
+  \caption{Sexo de los individuos de la muestra}
+  \label{tab:resultados}
+\end{table}
 
 
 ## Trastorno del Sueño
